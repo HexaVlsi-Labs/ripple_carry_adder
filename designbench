@@ -1,0 +1,18 @@
+module rip_carry_add(a,b,cin,sum,carry);
+  input [2:0]a;
+  input [2:0]b;
+  input cin;
+  output [2:0]sum;
+  output carry;
+  wire w1,w2;
+  full_add f1(a[0],b[0],cin,sum[0],w1);
+  full_add f2(a[1],b[1],w1,sum[1],w2);
+  full_add f3(a[2],b[2],w2,sum[2],carry);
+endmodule
+  
+  module full_add(a,b,cin,sum,carry);
+    input a,b,cin;
+    output sum,carry;
+    assign sum=a^b^cin;
+    assign carry =(a&b)|(b&cin)|(cin&a);
+  endmodule
